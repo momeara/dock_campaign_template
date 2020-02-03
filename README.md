@@ -1,16 +1,19 @@
 # Dock Campaign Template
 An opinionated template for a Dock based virtual screening campaign
 
-Dock involves running a bunch of fortran wrapped in python wrapped in
-shell scripts. This template setups a standard way to organize the
-data and common workflows.
+* Dock involves running a bunch of fortran wrapped in python wrapped
+  in shell scripts. This template setups a standard way to organize
+  the data and common workflows.
 
-For each call to a script in `scripts/`, I recommand reading through it
-to make sure you understand what it is doing.
+* For each call to a script in `scripts/`, I recommand reading through
+  it to make sure you understand what it is doing.
 
-All files/foldes with date codes indicate that once the analysis is
-done they are immutable, and can be referenced externally. To keep
-sortable I like to use the format YYYYMMDD.
+* All files/foldes with date codes indicate that once the analysis is
+  done they are immutable, and can be referenced externally. To keep
+  sortable I like to use the format YYYYMMDD.
+
+* For scripts that must be run sequentially number them with leading 0s
+  so they are sortable
 
 # Getting started
 
