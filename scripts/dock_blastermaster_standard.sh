@@ -7,7 +7,7 @@ echo "Running blastermaster standard..."
 echo "Submitting to the cluster, this should take ~30 minutes"
 echo "Check with 'qstat'"
 
-[ -d "working" ] && mkdir working
+[ -d "working" ] || mkdir working
 
 qsub <<EOF 
 #$ -S /bin/csh

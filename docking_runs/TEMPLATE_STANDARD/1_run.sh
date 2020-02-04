@@ -1,20 +1,20 @@
 #!/bin/bash
 
-STRUCTURE_FNAME=../../structures/<structure_fname>.pdb
-XTAL_LIG_FNAME=../../structures/<xtal-lig_fname>.pdb
+#structure folder 'structures/<structure_tag>'
+STRUCTURE=<structure_tag>
 
-#libary folder 'databases/<library_tag>'
-DATABASE_NAME=<DATABASE_NAME>
+#database folder 'databases/<_tag>'
+DATABASE=<database_tag>
 
 source ../../scripts/dock_clean.sh
 
 echo 'Preparing receptor and xtal-lig ...'
-cp ${STRUCTURE_FNAME} rec.pdb
-cp ${XTAL_LIG_FNAME} xtal-lig.pdb
+cp ../../structures/${STRUCTURE}/rec.pdb rec.pdb
+cp ../../structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
 echo "Setting up dock and the screening library ..."
 source ../../scripts/dock_blastermaster_standard.sh
-source ../../scripts/dock_setup_library.sh ${DATABASE_NAME}
+source ../../scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
 source ../../scripts/dock_submit.sh
