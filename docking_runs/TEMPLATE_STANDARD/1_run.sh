@@ -13,7 +13,6 @@ cp ${STRUCTURE_FNAME} rec.pdb
 cp ${XTAL_LIG_FNAME} xtal-lig.pdb
 
 echo "Setting up dock and the screening library ..."
-mkdir working
 source ../../scripts/dock_blastermaster_standard.sh
 source ../../scripts/dock_setup_library.sh ${DATABASE_NAME}
 
