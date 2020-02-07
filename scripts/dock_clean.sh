@@ -16,9 +16,11 @@ rm -rf dockfiles
 
 echo 'Cleaning library files ...'
 rm -rf ligand*
-rm -rf dirlsit
+rm -rf dirlist
+rm -rf dirlist_orig
 
 echo 'Cleaning dock results ...'
+rm -rf submit.pid
 rm -rf OUTDOCK
 rm -rf extract_all.txt
 rm -rf extract_all.sort.txt
