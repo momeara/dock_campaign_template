@@ -3,6 +3,16 @@
 # this is just $DOCKBASE/docking/submit/submit.csh
 # but saves the SGE job id to submit.pid
 
+
+#$DOCKBASE/docking/submit/subdock.csh $DOCKBASE/docking/DOCK/bin/dock.csh
+
+if ( ! -e dirlist ) then
+    echo "Error: Cannot find dirlist, the list of subdirectories!"
+    echo "Exiting!"
+    exit 1
+fi
+
+
 DIRNUM=$(wc -l dirlist)
 SUBMIT_JOB_ID=$(qsub \
   -terse \
