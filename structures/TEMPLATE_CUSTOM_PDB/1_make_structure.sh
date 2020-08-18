@@ -1,9 +1,14 @@
 #!/bin/sh
 
-PDB_CODE=  # put pdb code like '3HHA' here
-PDB_CHAIN= # put PDB chain id like 'A' or multiple chains like '[AB]' here.
+# fill in 
+PDB_CODE=
+RECEPTOR_CHAIN=
+LIGAND_CHAIN=
+LIGAND_RESID=
 
 wget https://files.rcsb.org/download/${PDB_CODE}.pdb
 mv ${PDB_CODE} raw.pdb
-grep '^ATOM.................${PDB_CHAIN}' raw.pdb > structure.pdb
+
+grep "^ATOM.................${RECEPTOR_CHAIN}" raw.pdb > rec.pdb
+grep "^HETATM...........${LIGAND_RESID} ${LIGAND_CHAIN}" raw.pdb > xtal-lig.pdb
 

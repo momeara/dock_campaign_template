@@ -3,6 +3,10 @@
 
 # http://wiki.bkslab.org/index.php/How_to_process_results_from_a_large-scale_docking#Check_for_completion_and_resubmit_failed_jobs
 
+# The basic idea is to modify the dirlist to have the directories that have not finished
+# the trick is to save the original dirlist to remember what the full set of directories are
+
+
 cp dirlist dirlist_ori
 chmod -w dirlist_ori
 

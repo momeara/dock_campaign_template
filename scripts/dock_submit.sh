@@ -6,7 +6,7 @@
 
 #$DOCKBASE/docking/submit/subdock.csh $DOCKBASE/docking/DOCK/bin/dock.csh
 
-if ( ! -e dirlist ) then
+if [ ! -f "dirlist" ]; then
     echo "Error: Cannot find dirlist, the list of subdirectories!"
     echo "Exiting!"
     exit 1

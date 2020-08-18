@@ -14,6 +14,8 @@ cp ../../structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
 echo "Setting up dock and the screening library ..."
 source ../../scripts/dock_blastermaster_standard.sh
+echo "Check working/blastermaster.err for any errors ..."
+
 source ../../scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
