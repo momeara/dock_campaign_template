@@ -6,10 +6,10 @@
 
 
 #docking run folder 'docking_runs/<docking_run_id>
-PARENT_DOCKING_RUN=
+PARENT_DOCKING_RUN=<docking_run_id>
 
 #database folder 'databases/<database_id>'
-DATABASE=
+DATABASE=<database_id>
 
 source ../../scripts/dock_clean.sh
 

@@ -1,9 +1,11 @@
 #!/bin/bash
 
+COVALENT_RESIDUE_NUMBER=$1
+COVALENT_RESIDUE_NAME=$2
+COVALENT_RESIDUE_ATOMS=$3
 
 
-
-echo "Running blastermaster tarted..."
+echo "Running blastermaster covalent..."
 echo "Submitting to the cluster, this should take ~30 minutes"
 echo "Check with 'qstat'"
 
@@ -23,8 +25,8 @@ setenv PATH "${DOCKBASE}/bin:${PATH}"
 $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --useThinSphEleflag \
   --useThinSphLdsflag \
-  --addNOhydrogensflag \
-  --chargeFile=$(pwd)/amb.crg.oxt \
-  --vdwprottable=$(pwd)/prot.table.ambcrg.ambH \
+  --covalentResNum ${COVALENT_RESIDUE_NUMBER} \
+  --covalentResName ${COVALENT_RESIDUE_NAME} \
+  --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
 EOF
