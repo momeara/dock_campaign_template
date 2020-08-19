@@ -16,6 +16,7 @@ source ../../scripts/dock_clean.sh
 echo "tarting prepared structure from ${PARENT_DOCKING_RUN}"
 mkdir working
 cp ../${PARENT_DOCKING_RUN}/rec.pdb ./
+cp ../${PARENT_DOCKING_RUN}/xtal-lig.pdb ./
 cp ../${PARENT_DOCKING_RUN}/working/rec.crg.pdb working/
 cp ../${PARENT_DOCKING_RUN}/working/prot.table.ambcrg.ambH ./
 cp ../${PARENT_DOCKING_RUN}/working/amb.crg.oxt ./
