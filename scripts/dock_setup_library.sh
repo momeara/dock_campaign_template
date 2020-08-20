@@ -22,6 +22,8 @@ then
   exit 1
 fi
 
+echo "Preparing database from ${DATABASE_SDI} ..."
+
 
 time $DOCKBASE/docking/setup/setup_db2_zinc15_file_number.py ./ ligand ${DATABASE_SDI}  500 count
 

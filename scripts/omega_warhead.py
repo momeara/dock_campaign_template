@@ -140,8 +140,6 @@ def generate_conformations(omega, infile):
     
     print 'warning *!*!* you are now running COVALENT omega script - expecting SiH3' 
 
-    import pdb
-    pdb.set_trace()
     #for every match to the smarts pattern (should be unique)
     #flip the rigid atoms bit in phos
     for count,match in enumerate(ss.Match(mol,"true")):
