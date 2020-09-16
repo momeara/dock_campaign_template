@@ -28,3 +28,6 @@ rm -rf extract_all.sort.uniq.txt
 rm -rf poses.mol2
 rm -rf statistics.scored.zincid
 rm -rf statistics.docked.zincid
+
+echo 'Cleaning analysis results ...'
+rm -rf pose_features.tsv
