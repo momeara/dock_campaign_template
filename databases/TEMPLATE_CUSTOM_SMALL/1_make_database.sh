@@ -4,6 +4,7 @@
 
 
 # populate substances.smi having columns <smiles> <substance_id>
+# the substance_id field should be at most 12 characters long
 SUBSTANCES_FNAME=substances.smi
 
 time $DOCKBASE/ligand/generate/build_smiles_ligand.sh $SUBSTANCES_FNAME
