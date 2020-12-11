@@ -3,6 +3,7 @@
 # Setup environment
 source /mnt/nfs/soft/dock/versions/dock37/DOCK-3.7-trunk/env.csh
 setenv AMSOLEXE /nfs/home/momeara/ex9/tools/amsol7.1-colinear-fix/amsol7.1
+setenv SOFT /mnt/nfs/soft
 source /mnt/nfs/soft/corina/current/env.csh
 source /mnt/nfs/soft/python/current/env.csh
 source /nfs/soft/jchem/current/env.csh

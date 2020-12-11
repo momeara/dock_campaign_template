@@ -10,3 +10,6 @@ cp ../../structures/${STRUCTURE}/rec.pdb rec.pdb
 cp ../../structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
 source ../../scripts/dock_blastermaster_standard.sh
+
+
+source ../../scripts/dock_visualize_setup.sh
