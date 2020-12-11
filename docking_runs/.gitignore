@@ -2,3 +2,4 @@
 !.gitignore
 !README.md
 !TEMPLATE*
+!*/1_run.sh

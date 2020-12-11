@@ -1,12 +1,4 @@
-
-import sys
-import optparse
-import numpy as np
-import pandas as pd
-from scipy import sparse
-import oddt
-from oddt import fingerprints
-
+#!/usr/bin/env python
 
 VERSION = "0.0.1"
 DESCRIPTION = "Compute receptor-ligand interaction fingerprints using the ODDT toolkit"
@@ -15,6 +7,22 @@ USAGE = """
    python compute_interaction_fingerprints.py --receptor receptor.pdb  --ligands ligands.mol2 --output interaction_fingerprints.tsv
 
 """
+
+
+from __future__ import print_function
+
+
+import sys
+import optparse
+import numpy as np
+import pandas as pd
+from scipy import sparse
+
+try:
+    import oddt
+    from oddt import fingerprints
+except ModuleNotFoundError as err:
+    print("Unable to import module oddt. To install, run `pip install oddt` and see https://github.com/oddt/oddt")
 
 
 
@@ -39,7 +47,8 @@ def mol2_to_oddt_ligands(mol2_fname, verbose=False):
     return ligands
 
 def compute_interaction_fingerprints(receptor, ligands, verbose=True):
-    """ return unit8 matrix of interaction counts with dimensions (ligand, res_id, res_num, res_type, interaction_type, count)    
+    """ return unit8 matrix of interaction counts with dimensions 
+(ligand, res_id, res_num, res_type, interaction_type, count)    
     residue indicies are over
        np.unique(receptor.atom_dict['resid'])
     Interaction types are:
@@ -56,7 +65,7 @@ def compute_interaction_fingerprints(receptor, ligands, verbose=True):
     """
     resids = np.unique(receptor.atom_dict['resid'])
     if verbose:
-        print("Computing interaction fingerprints against {} residues".format(len(resids)))
+        print("Computing interaction fingerprints for {} ligands".format(len(resids)))
 
     ifps = []
     for i, ligand in enumerate(ligands):
