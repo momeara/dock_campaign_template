@@ -65,11 +65,12 @@ gather_pose_features <- function(
 	if(!(is.null(fields))){
 		z <- z %>% dplyr::filter(key %in% fields)
   }
-	z <- z %>%
-		tidyr::spread(key, value) %>%
-		readr::type_convert(col_type=col_types)
+	tryCatch({
+			z <- z %>%
+					tidyr::spread(key, value) %>%
+					readr::type_convert(col_type=col_types)})
 	if(verbose){
-		cat("found ", ncol(z), " features for ", nrow(z), " substances\n", sep="")
+		cat("Found ", ncol(z), " features for ", nrow(z), " substances\n", sep="")
 	}
 	z
 }
