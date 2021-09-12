@@ -20,3 +20,5 @@ echo "Collecint dock results ..."
 source ../../scripts/dock_extract_all.sh
 source ../../scripts/dock_get_poses.sh
 
+
+time python $DOCKBASE/analysis/get_docking_statistics.py . dirlist docking_statistics.txt
