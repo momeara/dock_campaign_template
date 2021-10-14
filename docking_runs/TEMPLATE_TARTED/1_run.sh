@@ -6,20 +6,20 @@
 
 
 #docking run folder 'docking_runs/<docking_run_id>
-PARENT_DOCKING_RUN=<docking_run_id>
+PARENT_DOCKING_RUN=$(readlink -f ../<docking_run_id>)
 
 #database folder 'databases/<database_id>'
-DATABASE=<database_id>
+DATABASE=$(readlink -f ../../databases/<database_id>)
 
-source ../../scripts/dock_clean.sh
+source ${DOCK_TEMPLATE}/scripts/dock_clean.sh
 
 echo "tarting prepared structure from ${PARENT_DOCKING_RUN}"
 mkdir working
-cp ../${PARENT_DOCKING_RUN}/rec.pdb ./
-cp ../${PARENT_DOCKING_RUN}/xtal-lig.pdb ./
-cp ../${PARENT_DOCKING_RUN}/working/rec.crg.pdb working/
-cp ../${PARENT_DOCKING_RUN}/working/prot.table.ambcrg.ambH ./
-cp ../${PARENT_DOCKING_RUN}/working/amb.crg.oxt ./
+cp ${PARENT_DOCKING_RUN}/rec.pdb ./
+cp ${PARENT_DOCKING_RUN}/xtal-lig.pdb ./
+cp ${PARENT_DOCKING_RUN}/working/rec.crg.pdb working/
+cp ${PARENT_DOCKING_RUN}/working/prot.table.ambcrg.ambH ./
+cp ${PARENT_DOCKING_RUN}/working/amb.crg.oxt ./
 
 
 ##########################################################################
@@ -43,12 +43,12 @@ cat amb.crg.oxt \
     >> amb.crg.oxt
 
 echo "Setting up dock and the screening library ..."
-source ../../scripts/dock_blastermaster_tarted.sh
-source ../../scripts/dock_setup_library.sh ${DATABASE}
+source ${DOCK_TEMPALTE}/scripts/dock_blastermaster_tarted.sh
+source ${DOCK_TEMPLATE}/scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
-source ../../scripts/dock_submit.sh
+source ${DOCK_TEMPLATE}/scripts/dock_submit.sh
 
 echo "Collecint dock results ..."
-source ../../scripts/dock_extract_all.sh
-source ../../scripts/dock_get_poses.sh
+source ${DOCK_TEMPALTE}/scripts/dock_extract_all.sh
+source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh

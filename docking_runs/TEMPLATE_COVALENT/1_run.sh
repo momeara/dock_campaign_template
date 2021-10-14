@@ -1,24 +1,19 @@
 #!/bin/bash
 
-# Use DocKOVALENT
+# structure folder 'prepared_structures/<structure_id>'
+PREPARED_STRUCTURE=$(readlink -f ../../prepared_structures/<structure_id>)
 
-#structure folder 'structures/<structure_id>'
-STRUCTURE=<structure_id>
-COVALENT_RESIDUE_NUMBER=<residue_number>
-COVALENT_RESIDUE_NAME=<residue_name>
-COVALENT_RESIDUE_ATOMS=<residue_atoms>
 
 #database folder 'databases/<database_id>'
-DATABASE=<database_id>
+DATABASE=$(readlink -f ../../databases/<database_id>)
 
-source ../../scripts/dock_clean.sh
+source ${DOCK_TEMPALTE}/scripts/dock_clean.sh
 
+echo 'Preparing receptor and xtal-lig ...'
+cp -r ${PREPARED_STRUCTURE}/* .
 
-echo "Setting up dock and the screening library ..."
-source ../../scripts/dock_blastermaster_covalent.sh \
-  ${COVALENT_RESIDUE_NUMBER} \
-  ${COVALENT_RESIDUE_NAME} \
-  ${COVALENT_RESIDUE_ATOMS}
+source ${DOCK_TEMPLATE}/scripts/dock_setup_library.sh ${DATABASE}
+
 
 # update INDOCK for covalent docking
 #SEARCH MODE
@@ -51,11 +46,11 @@ sed -i "s/ang2_step                     2.5/ang2_step                     .25/" 
 sed -i "s/minimize                      yes/minimize                      no/" INDOCK
 
 
-source ../../scripts/dock_setup_library.sh ${DATABASE}
+source ${DOCK_TEMPALTE}/scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
-source ../../scripts/dock_submit.sh
+source ${DOCK_TEMPALTE}/scripts/dock_submit.sh
 
 echo "Collecint dock results ..."
-source ../../scripts/dock_extract_all.sh
-source ../../scripts/dock_get_poses.sh
+source ${DOCK_TEMPLATE}/scripts/dock_extract_all.sh
+source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh

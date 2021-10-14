@@ -1,15 +1,15 @@
 #!/bin/bash
 
 #structure folder 'structures/<structure_id>'
-STRUCTURE=
+STRUCTURE=$(readlink -f ../../structures/<structure_id>)
 
 source ../../scripts/dock_clean.sh
 
 echo 'Preparing receptor and xtal-lig ...'
-cp ../../structures/${STRUCTURE}/rec.pdb rec.pdb
-cp ../../structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
+cp ${DOCK_TEMPLATE}/structures/${STRUCTURE}/rec.pdb rec.pdb
+cp ${DOCK_TEMPALTE}/structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
-source ../../scripts/dock_blastermaster_standard.sh
+source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_standard.sh
 
 
-source ../../scripts/dock_visualize_setup.sh
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh

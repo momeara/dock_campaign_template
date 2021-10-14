@@ -8,7 +8,7 @@ An opinionated template for a Dock based virtual screening campaign
 * For each call to a script in `scripts/`, I recommand reading through
   it to make sure you understand what it is doing.
 
-* All files/foldes with date codes indicate that once the analysis is
+* All files/folders with date codes indicate that once the analysis is
   done they are immutable, and can be referenced externally. To keep
   sortable I like to use the format YYYYMMDD.
 
@@ -17,52 +17,83 @@ An opinionated template for a Dock based virtual screening campaign
 
 # Getting started
 
-1. Clone the template to begin a campaign
+0. Install DOCK (http://dock.compbio.ucsf.edu/)
+
+1. Clone the template repo to somewhere you can reference. I like to put it in ~/opt/dock_campaign_template.git
 
 ```shell
-git clone git@github.com:momeara/dock_campaign_template.git <project_name>
-cd project_name
+cd ~/opt
+git clone git@github.com:momeara/dock_campaign_template.git
 ```
 
-2. Initialize the environment. Currently this is setup up for paths on the bkslab cluster, so modify for your environment.
+2. Create a base directory for the project, e.g. for example for docking to KCNQ channels on the UMich Great Lakes cluster we may use ~/turbo/KCNQ/docking
 
 ```shell
-source 0_setup_dock_environment.sh
+cd ~/turbo/KCNQ
+mkdir docking
+cd docking
+
+
+2. Initialize the environment. Currently this is setup up for paths on the bkslab cluster, so modify for your environment. This creates several directories.
+```shell
+source ~/opt/dock_campaign_template/scripts/initialize_dock_campaign.sh
 ```
 
-3. Collect structures from the pdb (copy this into `structures/1_get_structures.sh) and then run from `structures/`:
+3. Edit setup_dock_environment.sh for your environment. For example if you can submit jobs to a HPC cluster, fill in the cluster type and parameters
 
-```shell    
-pushd structures
-source ../scripts/fetch_pdb_chain.sh <pdb_code> <chain_id>
-# writes  <pdb_code>_<chain_code>.pdb
-# if there is a ligand, split it into a separate file e.g. <pdb_code>_<chain_code>_<lig_id>.pdb
+# Using the dock_campaign_tempalte
+
+0. Setup the the dock environment
+```shell
+source setup_dock_environment.sh
+```
+
+1. Define some variables to make life easier. For a given docking run
+you can mix-and-match (prepared) structures, databases and docking flags.
+
+```shell
+DATE_CODE=<YYYYMMDD>
+STRUCTURE_ID=<pdb_id>_${DATE_CODE}
+DATABASE_ID=project_ligands_${DATE_CODE}
+DOCKING_FLAGS=''
+
+STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
+PREPARED_STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
+DATABASE=$(readlink -f databases/${DATABASE_ID}_${DATE_CODE})
+DOCKING_RUN=$(readlink -f docking_run/${STRUCTURE_ID}_${DATE_CODE},${DATABASE_ID}_${DATE_CODE},${DOCKING_FLAGS},${DATE_CODE})
+```
+
+2. Collect a structure and prepare it into a receptor (rec.pdb) and if available a reference ligand (xtal-lig.pdb)
+```shell
+cp -r ${DOCK_TEMPLATE}/structures/TEMPLATE_<type> ${STRUCTURE}
+pushd ${STRUCTURE}
+# edit and source 1_make_structure.sh
 popd
 ```
 
-4. Prepare the ligand database. For example from a list of smiles
+2. Prepare the structure for docking e.g. by running some form of blastermaster.
 
+```
+cp -r ${DOCK_TEMPLATE}/prepared_structures/TEMPLATE_<type> ${PREPARED_STRUCTURE}
+pushd ${PREPARED_STRUCTURE}
+# edit and source 1_prepare_structure.sh
+popd
+
+
+3. Prepare the ligand database
 ```shell
-pushd databases
-cp -r TEMPLATE_STANDARD <database_name>_<date_code>
-cd <database_name>_<date_code>
-# write `substances.sdi` with columns <smiles> <substance_id>
-source 1_make_database.sh
+cp -r ${DOCK_TEMPALTE}/databases/TEMPLATE_<type> ${DATABASE}
+pushd ${DATABASE}
+# edit and source 1_make_database.sh
 popd
 ```
-
-5. Prepare and run a dock. Note the blastermaster and submit scripts
-   called from `1_run.sh` submit jobs to the cluster #they must finish
-   before the next steps can be executed
-
-```shell
-pushd docking_runs
-cp -r TEMPLATE_STANDARD <run_id>_<date_code>
-cd <run_id>_<date_code>
-# edit 1_run.sh setting STRUCTURE_FNAME, XTAL_LIG_FNAME, DATABASE_NAME
-source 1_run.sh
-```    
 
 6. Either create a new run or copy and modify an existing
    run. Depending on what was changed, look in dock_clean to reset.
+```shell
+cp -r ${DOCK_TEMPLATE}/docking_runs/TEMPLATE_<type> ${DOCKING_RUN}
+pushd ${DOCKING_RUN}
+# edit and source 1_run.sh
+popd
+```    
 
