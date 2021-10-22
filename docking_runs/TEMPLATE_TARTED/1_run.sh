@@ -52,3 +52,4 @@ source ${DOCK_TEMPLATE}/scripts/dock_submit.sh
 echo "Collecint dock results ..."
 source ${DOCK_TEMPALTE}/scripts/dock_extract_all.sh
 source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh
+source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh

@@ -19,6 +19,5 @@ $DOCKBASE/docking/submit/submit.csh
 echo "Collecint dock results ..."
 source ${DOCK_TEMPLATE}/scripts/dock_extract_all.sh
 source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh
+source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh
 
-
-time python $DOCKBASE/analysis/get_docking_statistics.py . dirlist docking_statistics.txt
