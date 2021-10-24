@@ -41,7 +41,19 @@ source ~/opt/dock_campaign_template/scripts/initialize_dock_campaign.sh
 
 3. Edit setup_dock_environment.sh for your environment. For example if you can submit jobs to a HPC cluster, fill in the cluster type and parameters
 
-# Using the dock_campaign_tempalte
+# Using the dock_campaign_template wizard (recommended)
+
+0. Setup the the dock environment
+```shell
+source setup_dock_environment.sh
+```
+
+1. At each stage call the wizard to guide you through using the templates
+```shell
+${DOCK_TEMPLATE}/wizard.sh
+```
+
+# Use the dock_campaign_template manually
 
 0. Setup the the dock environment
 ```shell
@@ -55,12 +67,12 @@ you can mix-and-match (prepared) structures, databases and docking flags.
 DATE_CODE=<YYYYMMDD>
 STRUCTURE_ID=<pdb_id>_${DATE_CODE}
 DATABASE_ID=project_ligands_${DATE_CODE}
-DOCKING_FLAGS=''
+DOCKING_TAG=''
 
 STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
 PREPARED_STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
 DATABASE=$(readlink -f databases/${DATABASE_ID}_${DATE_CODE})
-DOCKING_RUN=$(readlink -f docking_run/${STRUCTURE_ID}_${DATE_CODE},${DATABASE_ID}_${DATE_CODE},${DOCKING_FLAGS},${DATE_CODE})
+DOCKING_RUN=$(readlink -f docking_run/${STRUCTURE_ID}_${DATE_CODE},${DATABASE_ID}_${DATE_CODE},${DOCKING_TAG},${DATE_CODE})
 ```
 
 2. Collect a structure and prepare it into a receptor (rec.pdb) and if available a reference ligand (xtal-lig.pdb)
