@@ -94,7 +94,7 @@ popd
 
 3. Prepare the ligand database
 ```shell
-cp -r ${DOCK_TEMPALTE}/databases/TEMPLATE_<type> ${DATABASE}
+cp -r ${DOCK_TEMPLATE}/databases/TEMPLATE_<type> ${DATABASE}
 pushd ${DATABASE}
 # edit and source 1_make_database.sh
 popd

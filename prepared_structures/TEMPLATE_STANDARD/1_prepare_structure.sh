@@ -7,7 +7,7 @@ source ../../scripts/dock_clean.sh
 
 echo 'Preparing receptor and xtal-lig ...'
 cp ${DOCK_TEMPLATE}/structures/${STRUCTURE}/rec.pdb rec.pdb
-cp ${DOCK_TEMPALTE}/structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
+cp ${DOCK_TEMPLATE}/structures/${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
 source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_standard.sh
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Bash Menu Script Example
 
-# test if ${DOCK_TEMPALTE} has been defined
+# test if ${DOCK_TEMPLATE} has been defined
 
 if [ -z ${DOCK_TEMPLATE+x} ]; then
     echo "Please set the \${DOCK_TEMPLATE} environment variable."

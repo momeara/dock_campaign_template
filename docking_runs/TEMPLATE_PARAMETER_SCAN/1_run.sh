@@ -16,5 +16,5 @@ $DOCKBASE/docking/submit/submit.csh
 
 echo "Collecint dock results ..."
 time $DOCKBASE/analysis/extract_all.py --done
-source ${DOCK_TEMPALTE}/scripts/dock_get_poses.sh
+source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh
 source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh

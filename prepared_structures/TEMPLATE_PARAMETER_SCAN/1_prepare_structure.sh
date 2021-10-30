@@ -14,4 +14,4 @@ echo 'Preparing receptor and xtal-lig ...'
 cp ${PREPARED_STRUCTURE}/rec.pdb rec.pdb
 cp ${PREPARED_STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
-source ${DOCK_TEMPALTE}/scripts/dock_blastermaster_standard.sh
+source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_standard.sh

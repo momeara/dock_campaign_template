@@ -7,7 +7,7 @@ PREPARED_STRUCTURE=$(readlink -f ../../prepared_structures/<structure_id>)
 #database folder 'databases/<database_id>'
 DATABASE=$(readlink -f ../../databases/<database_id>)
 
-source ${DOCK_TEMPALTE}/scripts/dock_clean.sh
+source ${DOCK_TEMPLATE}/scripts/dock_clean.sh
 
 echo 'Preparing receptor and xtal-lig ...'
 cp -r ${PREPARED_STRUCTURE}/* .

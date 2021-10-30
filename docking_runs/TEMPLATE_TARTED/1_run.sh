@@ -43,13 +43,13 @@ cat amb.crg.oxt \
     >> amb.crg.oxt
 
 echo "Setting up dock and the screening library ..."
-source ${DOCK_TEMPALTE}/scripts/dock_blastermaster_tarted.sh
+source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_tarted.sh
 source ${DOCK_TEMPLATE}/scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
 source ${DOCK_TEMPLATE}/scripts/dock_submit.sh
 
 echo "Collecint dock results ..."
-source ${DOCK_TEMPALTE}/scripts/dock_extract_all.sh
+source ${DOCK_TEMPLATE}/scripts/dock_extract_all.sh
 source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh
 source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh
