@@ -4,20 +4,29 @@
 # use this e.g. for edited sphgen prepared_structures/TEMPLATE_SPHGEN
 
 echo "Running blastermaster using custom spheres..."
-echo "Submitting to the cluster, this should take ~30 minutes"
-echo "Check with 'qstat'"
 
 [ -d "working" ] || mkdir working
 
+if [ ${CLUSTER_TYPE} = "LOCAL" ]; then
+    echo "Using cluster type LOCAL"
+    
+$DOCKBASE/proteins/blastermaster/blastermaster.py \
+  --addNOhydrogensflag \
+  --useThinSphEleflag \
+  --useThinSphLdsflag \
+  --useExistingMatchingSphflag \
+  -v
+
+elif [ ${CLUSTER_TYPE} = "SGE" ]; then
+    echo "Using cluster type SGE"
 qsub <<EOF 
 #$ -S /bin/csh
 #$ -cwd
 #$ -q all.q
-#$ -o working/blastermaster.out
-#$ -e working/blastermaster.err
+#$ -o working/blastermaster_custom_spheres.out
+#$ -e working/blastermaster_custom_spheres.err
 
-source /nfs/soft/dock/versions/dock37/DOCK-3.7-trunk/env.csh
-setenv DOCKBASE /nfs/home/rstein/zzz.github/DOCK
+setenv DOCKBASE ${DOCKBASE}
 setenv PATH "${DOCKBASE}/bin:${PATH}"
 
 $DOCKBASE/proteins/blastermaster/blastermaster.py \
@@ -27,3 +36,43 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --useExistingMatchingSphflag \
   -v
 EOF
+
+echo "Submitting to the SGE cluster, this should take ~30 minutes"
+echo "Check with 'qstat'"
+
+elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
+    echo "Using cluster type SLURM"
+sbatch <<EOF
+#!/bin/sh
+#SBATCH --job-name=blastermaster_covalent
+#SBATCH --mail-user=${SLURM_MAIL_USER}
+#SBATCH --mail-type=${SLURM_MAIL_TYPE}
+#SBATCH --account=${SLURM_ACCOUNT}
+#SBATCH --partition=${SLURM_PARTITION}
+#SBATCH --cpus-per-task=1
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem-per-cpu=1000m 
+#SBATCH --time=50:00
+#SBATCH --output=working/blastermaster_custom_spheres.out
+#SBATCH --error=working/blastermaster_custom_spheres.err
+
+export DOCKBASE=${DOCKBASE} 
+export PATH="${DOCKBASE}/bin:${PATH}"
+
+
+$DOCKBASE/proteins/blastermaster/blastermaster.py \
+  --addNOhydrogensflag \
+  --useThinSphEleflag \
+  --useThinSphLdsflag \
+  --useExistingMatchingSphflag \
+  -v
+EOF
+
+echo "Submitting to the SLURM cluster, this should take ~30 minutes"
+echo "Check with 'squeue | grep ${SLURM_ACCOUNT}'"
+
+else
+    echo "Unrecognized CLUSTER_TYPE '${CLUSTER_TYPE}'"
+    exit 1
+fi

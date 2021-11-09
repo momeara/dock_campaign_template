@@ -9,13 +9,14 @@ echo "Running blastermaster standard..."
 
 
 if [ ${CLUSTER_TYPE} = "LOCAL" ]; then
-
-$DOCKBASE/proteins/blastermaster/blastermaster.py \
-  --useThinSphEleflag \
-  --useThinSphLdsflag \
-  -v
+    echo "Using cluster type LOCAL"
+    $DOCKBASE/proteins/blastermaster/blastermaster.py \
+      --useThinSphEleflag \
+      --useThinSphLdsflag \
+      -v
     
 elif [ ${CLUSTER_TYPE} = "SGE" ]; then
+    echo "Using clsuter type SGE"
 qsub <<EOF 
 #$ -S /bin/csh
 #$ -cwd
@@ -23,8 +24,7 @@ qsub <<EOF
 #$ -o working/blastermaster.out
 #$ -e working/blastermaster.err
 
-source /nfs/soft/dock/versions/dock37/DOCK-3.7-trunk/env.csh
-setenv DOCKBASE /nfs/home/rstein/zzz.github/DOCK
+setenv DOCKBASE ${DOCKBASE}
 setenv PATH "${DOCKBASE}/bin:${PATH}"
 
 $DOCKBASE/proteins/blastermaster/blastermaster.py \
@@ -36,7 +36,7 @@ echo "Submitting to the SGE cluster, this should take ~30 minutes"
 echo "Check with 'qstat'"
 
 elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
-
+    echo "Using cluster type SLURM"
 sbatch <<EOF
 #!/bin/sh
 #SBATCH --job-name=blastermaster_standard
@@ -58,13 +58,11 @@ export PATH="${DOCKBASE}/bin:${PATH}"
 ${DOCKBASE}/proteins/blastermaster/blastermaster.py \
   --useThinSphEleflag \
   --useThinSphLdsflag \
-  --covalentResNum ${COVALENT_RESIDUE_NUMBER} \
-  --covalentResName ${COVALENT_RESIDUE_NAME} \
-  --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
 EOF
+
 echo "Submitting to the SLURM cluster, this should take ~30 minutes"
-echo "Check with 'squeue | grep ${SLURM_ACCOUNT'"
+echo "Check with 'squeue | grep ${SLURM_ACCOUNT}'"
 
 else
     echo "Unrecognized CLUSTER_TYPE ${CLUSTER_TYPE}"
