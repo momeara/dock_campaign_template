@@ -1,4 +1,4 @@
 
 
 
-time python ${DOCKBASE}/analysis/get_dock_statistics.py . dirlist dock_statistics.txt
+time python ${DOCKBASE}/analysis/get_docking_statistics.py . dirlist dock_statistics.txt

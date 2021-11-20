@@ -37,7 +37,7 @@ echo "Check with 'qstat'"
 
 elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
     echo "Using cluster type SLURM"
-sbatch <<EOF
+SBATCH_SCRIPT=<<EOF
 #!/bin/sh
 #SBATCH --job-name=blastermaster_standard
 #SBATCH --mail-user=${SLURM_MAIL_USER}
@@ -61,10 +61,14 @@ ${DOCKBASE}/proteins/blastermaster/blastermaster.py \
   -v
 EOF
 
-echo "Submitting to the SLURM cluster, this should take ~30 minutes"
-echo "Check with 'squeue | grep ${SLURM_ACCOUNT}'"
+SLURM_JOB_ID=$(sbatch --parsable ${SBATCH_SCRIPT})
+
+echo "Submitting job ${SLURM_JOB_ID} the SLURM cluster, this should take ~30 minutes"
+echo "Check with 'squeue | grep ${SLURM_JOB_ID}'"
+exit ${SLURM_JOB_ID}
 
 else
     echo "Unrecognized CLUSTER_TYPE ${CLUSTER_TYPE}"
     exit 1
 fi
+
