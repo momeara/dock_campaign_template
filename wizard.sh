@@ -1,5 +1,16 @@
 #!/bin/bash
-# Bash Menu Script Example
+
+##
+## This is an interactive script to giuide through the stages
+## of a docking campaign. To get started:
+##
+##  cd <campaign_base_directory>
+##  /path/to/dock_campaign_template/wizard.sh
+##
+##
+
+
+
 
 # test if ${DOCK_TEMPLATE} has been defined
 
@@ -92,8 +103,8 @@ setup_database () {
     echo "Next steps:"
     echo ""
     echo "  pushd ${database_path}"
-    echo "  # edit 1_prepare_database.sh"
-    echo "  ./1_prepare_database.sh"
+    echo "  # edit 1_make_database.sh"
+    echo "  ./1_make_database.sh"
     echo "  popd"
     echo ""
     echo "Then make the structure..."
