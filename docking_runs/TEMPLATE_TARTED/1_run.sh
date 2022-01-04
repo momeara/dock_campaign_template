@@ -47,7 +47,10 @@ source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_tarted.sh
 source ${DOCK_TEMPLATE}/scripts/dock_setup_library.sh ${DATABASE}
 
 echo "Running dock ..."
-source ${DOCK_TEMPLATE}/scripts/dock_submit.sh
+bash ${DOCK_TEMPLATE}/scripts/dock_submit.sh \
+     ${DATABASE}/database.sdi \
+     ${PREPARED_STRUCTURE}/working \
+     results
 
 echo "Collecint dock results ..."
 source ${DOCK_TEMPLATE}/scripts/dock_extract_all.sh

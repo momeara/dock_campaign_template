@@ -22,6 +22,7 @@ rm -rf dirlist_orig
 echo 'Cleaning dock results ...'
 rm -rf submit.pid
 rm -rf OUTDOCK
+rm -rf results
 rm -rf extract_all.txt
 rm -rf extract_all.sort.txt
 rm -rf extract_all.sort.uniq.txt
