@@ -6,19 +6,24 @@ DATABASE=$(readlink -f ../../databases/<database_id>)
 
 source ${DOCK_TEMPLATE}/scripts/dock_clean.sh
 
-echo 'Preparing receptor and xtal-lig ...'
-cp -r ${PREPARED_STRUCTURE}/* .
-
-source ${DOCK_TEMPLATE}/scripts/dock_setup_library.sh ${DATABASE}
-
 echo "Running dock ..."
-bash ${DOCK_TEMPLATE}/scripts/dock_submit.sh \
-     ${DATABASE}/database.sdi \
-     ${PREPARED_STRUCTURE}/working \
-     results
+echo "Running dock ..."
+for params in ${PREPARED_STRUCTURE}/combo_directories/*/ ; do
+    echo "Submitting job for param set: ${param}"
+
+    mkdir -p results/$(basename ${params})
+    pushd results/$(basename ${params})
+    bash ${DOCK_TEMPLATE}/scripts/dock_submit.sh \
+         ${DATABASE}/database.sdi \
+         ${params}/dockfiles \
+         .
+    popd
+done
 
 
 echo "Collecint dock results ..."
-time $DOCKBASE/analysis/extract_all.py --done
-source ${DOCK_TEMPLATE}/scripts/dock_get_poses.sh
+find results -maxdepth 2 -mindepth 2 -type d > dirlist
+python ${DOCKBASE}/analysis/extract_all_blazing_fast.py dirlist extract_all.sort.uniq.txt 10
+python ${DOCKBASE}/analysis/getposes_blazing_fast.py '' extract_all.sort.uniq.sort.uniq.txt 500 poses.mol2
+
 source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh

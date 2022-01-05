@@ -439,9 +439,7 @@ docking_run () {
     #########################################################
     # Substitute prepared structure and database paraemters #
     #########################################################
-    echo "Substituting <structure_id> -> '${prepared_structure_id}' in ${docking_run_path}/1_run.sh ..."
     sed -i ${docking_run_path}/1_run.sh -e "s/<structure_id>/${prepared_structure_id}/g"
-    echo "Substituting <database_id> -> '${database_id}' in ${docking_run_path}/1_run.sh ..."
     sed -i ${docking_run_path}/1_run.sh -e "s/<database_id>/${database_id}/g"
 
     #######################
