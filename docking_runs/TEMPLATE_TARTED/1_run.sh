@@ -6,7 +6,7 @@
 
 
 #docking run folder 'docking_runs/<docking_run_id>
-PARENT_DOCKING_RUN=$(readlink -f ../<docking_run_id>)
+PARENT_DOCKING_RUN=$(readlink -f ../<docking_id>)
 
 #database folder 'databases/<database_id>'
 DATABASE=$(readlink -f ../../databases/<database_id>)
