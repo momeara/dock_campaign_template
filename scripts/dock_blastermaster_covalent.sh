@@ -93,7 +93,6 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
     echo "Submitting job ${SLURM_JOB_ID} to the SLURM cluster, this should take ~30 minutes"
     echo "Check with 'squeue | grep ${SLURM_JOB_ID}'"
 
-
 else
     echo "Unrecognized CLUSTER_TYPE '${CLUSTER_TYPE}'"
     exit 1
