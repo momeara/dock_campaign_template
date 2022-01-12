@@ -48,9 +48,9 @@ echo "Check with 'qstat'"
 
 elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
     echo "Using cluster type SLURM"
-    read -r -d '' SBATCH_SCRIPT <<-EOF
+    cat > blastermaster.sbatch <<-EOF
 	#!/bin/sh
-	#SBATCH --job-name=blastermaster_covalent
+	#SBATCH --job-name=blastermaster_tarted
 	#SBATCH --mail-user=${SLURM_MAIL_USER}
 	#SBATCH --mail-type=${SLURM_MAIL_TYPE}
 	#SBATCH --account=${SLURM_ACCOUNT}
@@ -74,7 +74,7 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 	  --vdwprottable=$(pwd)/prot.table.ambcrg.ambH \
 	  -v
 	EOF
-    SLURM_JOB_ID=$(sbatch --parsable <("${SBATCH_SCRIPT}") )
+    SLURM_JOB_ID=$(sbatch --parsable blastermaster.sbatch)
 
     echo "Submitting job ${SLURM_JOB_ID} the SLURM cluster, this should take ~30 minutes"
     echo "Check with 'squeue | grep ${SLURM_JOB_ID}'"
