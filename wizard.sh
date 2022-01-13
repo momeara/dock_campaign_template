@@ -275,9 +275,9 @@ prepare_structure () {
 	    select prepared_structure_id in "${prepared_structure_ids[@]}"; do
 		break
 	    done
-	    template_path="structures/${prepared_structure_id}"
+	    template_path="prepared_structures/${prepared_structure_id}"
 	else
-	    template_path="${DOCK_TEMPLATE}/structures/${prepared_structure_template}"
+	    template_path="${DOCK_TEMPLATE}/prepared_structures/${prepared_structure_template}"
 	fi
 	break
     done
