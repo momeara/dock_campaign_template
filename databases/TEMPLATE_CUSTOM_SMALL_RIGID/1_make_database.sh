@@ -59,7 +59,7 @@ done
 rm -rf database.sdi
 for substance in $SUBSTANCES
 do
-  find $PWD/${substance}_rigid -name "*db2.gz" >> database.sdi
+  echo "$PWD/${substance}_rigid.db2.gz" >> database.sdi
 done
 
 # used for enrichment
