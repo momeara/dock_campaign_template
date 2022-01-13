@@ -5,7 +5,6 @@
 
 echo "Running blastermaster tarted..."
 echo "Submitting to the cluster, this should take ~30 minutes"
-echo "Check with 'qstat'"
 
 [ -d "working" ] || mkdir working
 
@@ -60,8 +59,8 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 	#SBATCH --ntasks-per-node=1
 	#SBATCH --mem-per-cpu=1000m
 	#SBATCH --time=50:00
-	#SBATCH --output=working/blastermaster_custom_spheres.out
-	#SBATCH --error=working/blastermaster_custom_spheres.err
+	#SBATCH --output=working/blastermaster_tarted.out
+	#SBATCH --error=working/blastermaster_tarted.err
 
 	export DOCKBASE=${DOCKBASE}
 	export PATH="${DOCKBASE}/bin:${PATH}"
