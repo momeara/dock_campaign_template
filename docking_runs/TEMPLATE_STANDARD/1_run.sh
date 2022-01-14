@@ -21,3 +21,4 @@ python ${DOCKBASE}/analysis/getposes_blazing_fast.py '' extract_all.sort.uniq.tx
 
 source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh
 
+Rscript ${DOCK_TEMPLATE}/scripts/analysis/gather_pose_features.R --verbose
