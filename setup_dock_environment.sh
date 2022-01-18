@@ -21,7 +21,7 @@ export SCRATCH_DIR=
 export DOCK_TEMPLATE=${HOME}/opt/dock_campaign_template
 export DOCKBASE=${HOME}/opt/DOCK
 export PATH="${PATH}:${DOCKBASE}/bin"
-export ZINC3D_PATH ${HOME}/turboZINC_mirror/published/3D
+export ZINC3D_PATH ${HOME}/turbo/ZINC_mirror/published/3D
 
 # to build molecules for zinc (WIP)
 #https://comp.chem.umn.edu/sds/amsol/amsol7.1.tar.xz
