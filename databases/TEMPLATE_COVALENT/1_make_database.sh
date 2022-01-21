@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z ${DOCKBASE+x} ]; then
+    echo "ERROR: The \${CLUSTER_TYPE} variable is not set"
+    echo "ERROR: Please run 'source setup_dock_environment.sh' in the project root directory"
+fi
 
 SUBSTANCES_FNAME=substances.smi
 

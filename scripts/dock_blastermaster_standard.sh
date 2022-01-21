@@ -7,8 +7,11 @@ echo "Running blastermaster standard..."
 
 [ -d "working" ] || mkdir working
 
-
-if [ ${CLUSTER_TYPE} = "LOCAL" ]; then
+if [ -z ${CLUSTER_TYPE+x} ]; then
+    echo "ERROR: The \${CLUSTER_TYPE} variable is not set"
+    echo "ERROR: Please run 'source setup_dock_environment.sh' in the project root directory"
+    
+elif [ ${CLUSTER_TYPE} = "LOCAL" ]; then
     echo "Using cluster type LOCAL"
     $DOCKBASE/proteins/blastermaster/blastermaster.py \
       --useThinSphEleflag \
@@ -67,5 +70,4 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 
 else
     echo "Unrecognized CLUSTER_TYPE ${CLUSTER_TYPE}"
-    exit 1
 fi

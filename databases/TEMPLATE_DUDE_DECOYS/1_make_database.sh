@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO convert over to using the http://tldr.docking.org/ server
+
 SUBSTANCES_FNAME=substances.smi
 
 
