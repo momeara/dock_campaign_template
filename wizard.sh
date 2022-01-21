@@ -307,7 +307,7 @@ prepare_structure () {
     ###################################
     # Substitute structure parameters #
     ###################################
-    sed -i ${prepared_structure_path}/1_run.sh -e "s/<structure_id>/${prepared_structure_id}/g"
+    sed -i ${prepared_structure_path}/1_prepare_structure.sh -e "s/<structure_id>/${prepared_structure_id}/g"
 
 
     #######################
