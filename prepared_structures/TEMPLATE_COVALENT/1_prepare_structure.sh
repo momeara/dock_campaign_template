@@ -6,7 +6,7 @@ if [ -z ${DOCK_TEMPLATE+x} ]; then
 fi
 
 #structure folder:
-STRUCTURE=$(readlink -f ../../structures/<structure_tag>)
+STRUCTURE=$(readlink -f ../../structures/<structure_id>)
 
 COVALENT_RESIDUE_NUMBER=422
 COVALENT_RESIDUE_NAME=CYS
