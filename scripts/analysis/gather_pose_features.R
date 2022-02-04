@@ -35,7 +35,7 @@ gather_pose_features <- function(
 
 	z <- mol2_fname %>%
 		readr::read_lines() %>%
-		tibble::tibble(line=.) %>%
+		tibble::tibble(line = .) %>%
 		dplyr::filter(line %>% stringr::str_detect("^##########")) %>%
 		dplyr::mutate(
 			key = line %>%
