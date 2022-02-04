@@ -12,6 +12,11 @@ COVALENT_RESIDUE_NUMBER=422
 COVALENT_RESIDUE_NAME=CYS
 COVALENT_RESIDUE_ATOMS=HG
 
+echo "Selected residue for covalent docking:"
+echo "   residue nubmer: ${COVALENT_RESIDUE_NUMBER}"
+echo "   residue name:   ${COVALENT_RESIDUE_NAME}"
+echo "   covalent atoms:  ${COVALENT_RESIDUE_ATOMS}"
+
 source ${DOCK_TEPLATE}/scripts/dock_clean.sh
 
 echo 'Preparing receptor and xtal-lig ...'
