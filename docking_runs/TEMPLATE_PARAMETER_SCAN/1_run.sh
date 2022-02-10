@@ -32,7 +32,7 @@ done
 echo "Collecint dock results ..."
 find results -maxdepth 2 -mindepth 2 -type d > dirlist
 python ${DOCKBASE}/analysis/extract_all_blazing_fast.py dirlist extract_all.txt 10
-python ${DOCKBASE}/analysis/getposes_blazing_fast.py '' extract_all.sort.uniq.txt 500 poses.mol2
+python ${DOCKBASE}/analysis/getposes_blazing_faster.py '' extract_all.sort.uniq.txt 500 poses.mol2
 
 source ${DOCK_TEMPLATE}/scripts/dock_statistics.sh
 

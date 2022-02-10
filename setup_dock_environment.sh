@@ -20,7 +20,7 @@ export CLUSTER_TYPE=
 export SCRATCH_DIR=
 export DOCK_TEMPLATE=${HOME}/opt/dock_campaign_template
 export DOCKBASE=${HOME}/opt/DOCK
-export PATH="${PATH}:${DOCKBASE}/bin"
+export PATH="${PATH}:${DOCKBASE}/bin:${DOCK_TEMPLATE}/scripts"
 export ZINC3D_PATH ${HOME}/turbo/ZINC_mirror/published/3D
 
 # to build molecules for zinc (WIP)
