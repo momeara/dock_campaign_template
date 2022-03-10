@@ -35,6 +35,9 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
 
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 elif [ ${CLUSTER_TYPE} = "SGE" ]; then
     echo "Using cluster type SGE"
 qsub <<EOF
@@ -54,6 +57,10 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --covalentResName ${COVALENT_RESIDUE_NAME} \
   --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
+
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 EOF
 
 echo "Submitting to the SGE cluster, this should take ~30 minutes"
@@ -86,6 +93,10 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 	  --covalentResName ${COVALENT_RESIDUE_NAME} \
 	  --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
 	  -v
+
+        mv INDOCK dockfiles/
+        source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 	EOF
 
     SLURM_JOB_ID=$(sbatch --parsable blastermaster.sbatch)

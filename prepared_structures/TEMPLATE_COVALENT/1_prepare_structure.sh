@@ -37,6 +37,3 @@ source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_covalent.sh \
 
 source ${DOCK_TEMPLATE}/scripts/dock_indock_tight_covalent.sh
 
-mv INDOCK dockfiles/
-
-source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh

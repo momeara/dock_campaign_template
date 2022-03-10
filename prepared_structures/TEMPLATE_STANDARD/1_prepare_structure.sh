@@ -16,7 +16,3 @@ cp ${STRUCTURE}/rec.pdb rec.pdb
 cp ${STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
 
 source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_standard.sh
-
-mv INDOCK dockfiles/
-
-source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh

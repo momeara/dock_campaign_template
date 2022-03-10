@@ -17,6 +17,8 @@ elif [ ${CLUSTER_TYPE} = "LOCAL" ]; then
       --useThinSphEleflag \
       --useThinSphLdsflag \
       -v
+    mv INDOCK dockfiles/
+    source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
 
 elif [ ${CLUSTER_TYPE} = "SGE" ]; then
     echo "Using clsuter type SGE"
@@ -34,6 +36,9 @@ elif [ ${CLUSTER_TYPE} = "SGE" ]; then
 	  --useThinSphEleflag \
 	  --useThinSphLdsflag \
 	  -v
+
+        mv INDOCK dockfiles/
+        source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
 	EOF
 echo "Submitting to the SGE cluster, this should take ~30 minutes"
 echo "Check with 'qstat'"
@@ -62,6 +67,9 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 	  --useThinSphEleflag \
 	  --useThinSphLdsflag \
 	  -v
+
+	mv INDOCK dockfiles/
+        source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
 	EOF
     SLURM_JOB_ID=$(sbatch --parsable blastermaster.sbatch)
 

@@ -47,6 +47,3 @@ sed -i "s/H     phx        0.248/H     phx        0.648/g" amb.crg.oxt
 
 source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_tarted.sh
 
-mv INDOCK dockfiles/
-
-source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh

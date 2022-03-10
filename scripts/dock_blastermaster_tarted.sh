@@ -18,6 +18,8 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --chargeFile=$(pwd)/amb.crg.oxt \
   --vdwprottable=$(pwd)/prot.table.ambcrg.ambH \
   -v
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
 
 elif [ ${CLUSTER_TYPE} = "SGE" ]; then
     echo "Using cluster type SGE"
@@ -40,6 +42,9 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --chargeFile=$(pwd)/amb.crg.oxt \
   --vdwprottable=$(pwd)/prot.table.ambcrg.ambH \
   -v
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 EOF
 
 echo "Submitting to the SGE cluster, this should take ~30 minutes"
@@ -72,6 +77,9 @@ elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
 	  --chargeFile=$(pwd)/amb.crg.oxt \
 	  --vdwprottable=$(pwd)/prot.table.ambcrg.ambH \
 	  -v
+        mv INDOCK dockfiles/
+        source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 	EOF
     SLURM_JOB_ID=$(sbatch --parsable blastermaster.sbatch)
 
