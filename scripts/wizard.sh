@@ -447,8 +447,8 @@ docking_run () {
     #########################################################
     sed -i ${docking_run_path}/1_submit.sh -e "s/<structure_id>/${prepared_structure_id}/g"
     sed -i ${docking_run_path}/1_submit.sh -e "s/<database_id>/${database_id}/g"
-    sed -i ${docking_run_path}/1_gather.sh -e "s/<structure_id>/${prepared_structure_id}/g"
-    sed -i ${docking_run_path}/1_gather.sh -e "s/<database_id>/${database_id}/g"
+    sed -i ${docking_run_path}/2_gather.sh -e "s/<structure_id>/${prepared_structure_id}/g"
+    sed -i ${docking_run_path}/2_gather.sh -e "s/<database_id>/${database_id}/g"
 
     #######################
     # Describe next steps #
