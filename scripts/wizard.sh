@@ -432,7 +432,7 @@ docking_run () {
     echo "Copying dock_run template '${template_path}' -> '${docking_run_path}'"
     if [[ ${docking_run_template} = "Use existing docking run as template" ]]; then
 	mkdir ${docking_run_path}
-	cp ${template_path}/1_run.sh ${docking_run_path}/
+	find ${template_path} -maxdepth 1 -regextype posix-basic -regex '^[0-9]+_.*sh$' -exec cp -t ${docking_run_path} {} +
     else
 	cp -r ${template_path} ${docking_run_path}
     fi
@@ -445,8 +445,10 @@ docking_run () {
     #########################################################
     # Substitute prepared structure and database paraemters #
     #########################################################
-    sed -i ${docking_run_path}/1_run.sh -e "s/<structure_id>/${prepared_structure_id}/g"
-    sed -i ${docking_run_path}/1_run.sh -e "s/<database_id>/${database_id}/g"
+    sed -i ${docking_run_path}/1_submit.sh -e "s/<structure_id>/${prepared_structure_id}/g"
+    sed -i ${docking_run_path}/1_submit.sh -e "s/<database_id>/${database_id}/g"
+    sed -i ${docking_run_path}/1_gather.sh -e "s/<structure_id>/${prepared_structure_id}/g"
+    sed -i ${docking_run_path}/1_gather.sh -e "s/<database_id>/${database_id}/g"
 
     #######################
     # Describe next steps #
@@ -455,7 +457,9 @@ docking_run () {
     echo ""
     echo "  pushd ${docking_run_path}"
     echo "  # edit 1_run.sh"
-    echo "  ./1_run.sh"
+    echo "  ./1_submit.sh"
+    echo "  # wait till job is done"
+    echo "  ./1_gather.sh"
     echo "  popd"
     echo ""
     echo "Then for the final results check"
