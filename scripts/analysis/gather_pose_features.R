@@ -114,5 +114,3 @@ if (sys.nframe() == 0) {
 						verbose = options$verbose) %>%
 				readr::write_tsv(file = options$output_fname)
 }
-
-
