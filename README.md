@@ -59,6 +59,6 @@ Docking involves a series of stages from setting up the receptor and database to
 
 At each stage call the wizard to guide you through using the templates
 ```shell
-${DOCK_TEMPLATE}/wizard.sh
+${DOCK_TEMPLATE}/scripts/wizard.sh
 ```
 
