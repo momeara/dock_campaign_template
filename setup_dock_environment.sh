@@ -19,7 +19,11 @@ export CLUSTER_TYPE=
 
 export SCRATCH_DIR=
 export DOCK_TEMPLATE=${HOME}/opt/dock_campaign_template
-export DOCKBASE=${HOME}/opt/DOCK
+
+export DOCKBASE=${HOME}/opt/DOCK/ucsfdock
+# the DOCKBASE folder should contain files and folders that look like this:
+# analysis, bin, common, docking, install, ligand protein, files.py, util.py, __init__.py
+
 export PATH="${PATH}:${DOCKBASE}/bin:${DOCK_TEMPLATE}/scripts"
 export ZINC3D_PATH ${HOME}/turbo/ZINC_mirror/published/3D
 
