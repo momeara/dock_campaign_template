@@ -8,7 +8,7 @@ fi
 
 
 #structure folder 'structures/<structure_id>'
-STRUCTURE=$(readlink -f ../../structure/<structure_id>)
+STRUCTURE=$(readlink -f ../../structures/<structure_id>)
 
 source ${DOCK_TEMPLATE}/scripts/dock_clean.sh
 
