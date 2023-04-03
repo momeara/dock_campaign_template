@@ -1,6 +1,14 @@
 #!/bin/bash
 
-
+if [ -z ${DOCK_TEMPLATE+x} ]; then
+    echo "Please set the \${DOCK_TEMPLATE} environment variable."
+    echo "Usually you would do this by"
+    echo ""
+    echo "  cd <campaign_root>"
+    echo "  source setup_dock_environment.sh"
+    echo ""
+    exit 1
+fi
 
 
 echo "Running blastermaster tarted..."
