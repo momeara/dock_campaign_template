@@ -35,5 +35,4 @@ source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_covalent.sh \
        ${COVALENT_RESIDUE_NAME} \
        ${COVALENT_RESIDUE_ATOMS}
 
-source ${DOCK_TEMPLATE}/scripts/dock_indock_tight_covalent.sh
 
