@@ -43,7 +43,7 @@ elif [[ ${CLUSTER_TYPE} -eq "SLURM" ]]; then
     #    njobs=$(wc -l dirlist)
 
     #    sbatch ${SBATCH_ARGS} --signal=B:USR1@120 --array=1-${njobs} ${DOCKBASE}/docking/submit/slurm/rundock.bash   
-    bash ${DOCKBASE}/docking/submit/slurm/subdock.bash
+    bash ${DOCKBASE}/docking/submit/subdock.bash
     echo "Check status with: squeue | grep -e \"$(whoami)\" -e \"rundock\""
 else
     echo "Unrecognized cluster type '${CLUSTER_TYPE}'"
