@@ -20,22 +20,22 @@ gather_pose_features <- function(
 		ligand_source_file = readr::col_character(),
 		long_name = readr::col_character(),
 		protonation = readr::col_character(),
-		smiles = readr::col_character())){
-	if(verbose){
+		smiles = readr::col_character())) {
+	if (verbose) {
 		cat("Loading features from '", mol2_fname, "' ...\n", sep = "")
 	}
 	if (!file.exists(mol2_fname)) {
 			cat("ERROR: mol2 file '", mol2_fname, "' does not exist\n", sep = "")
 			return(data.frame())
 	}
-	if(length(readLines(mol2_fname, n = 1)) == 0 && verbose){
+	if (length(readLines(mol2_fname, n = 1)) == 0 && verbose) {
 			cat("WARNING: mol2 file '", mol2_fname, "' is empty.\n", sep = "")
 			return(data.frame())
 	}
 
 	z <- mol2_fname %>%
 		readr::read_lines() %>%
-		tibble::tibble(line=.) %>%
+		tibble::tibble(line = .) %>%
 		dplyr::filter(line %>% stringr::str_detect("^##########")) %>%
 		dplyr::mutate(
 			key = line %>%
@@ -46,7 +46,7 @@ gather_pose_features <- function(
 			value = line %>% stringr::str_sub(33) %>%
 				stringr::str_trim()) %>%
 		dplyr::select(-line) %>%
-		dplyr::mutate(name = ifelse(key=="name", value, NA)) %>%
+		dplyr::mutate(name = ifelse(key == "name", value, NA)) %>%
 		dplyr::mutate(row_number = row_number())
 	# it may be the case that the molecule is in the file multiple times with the same name
 	z <- z %>%
@@ -57,26 +57,26 @@ gather_pose_features <- function(
 					pose_id = paste0(name, "_", row_number())) %>%
 				dplyr::ungroup() %>%
 				dplyr::select(row_number, name, pose_id),
-			by=c("row_number", "name")) %>%
+			by = c("row_number", "name")) %>%
 		dplyr::select(-row_number)
 	z <- z %>%
 		tidyr::fill(name, pose_id) %>%
 		dplyr::filter(key != "name")
-	if(!(is.null(fields))){
+	if (!(is.null(fields))) {
 		z <- z %>% dplyr::filter(key %in% fields)
   }
 	tryCatch({
 			z <- z %>%
 					tidyr::spread(key, value) %>%
-					readr::type_convert(col_type=col_types)})
-	if(verbose){
-		cat("Found ", ncol(z), " features for ", nrow(z), " substances\n", sep="")
+					readr::type_convert(col_type = col_types)})
+	if (verbose) {
+		cat("Found ", ncol(z), " features for ", nrow(z), " substances\n", sep = "")
 	}
 	z
 }
 
 # if run as a script
-if (sys.nframe() == 0){
+if (sys.nframe() == 0) {
 		library("optparse")
 		options <- optparse::OptionParser() %>%
 				optparse::add_option(
@@ -87,8 +87,8 @@ if (sys.nframe() == 0){
 			  optparse::add_option(
 						opt_str = "--mol2_files",
 						action = "store",
-						default = "./ligand*/test.mol2.gz",
-						help = "Directory where dock was run [default: ./*/test.mol2.gz]") %>%
+						default = "./results/*/test.mol2.gz*",
+						help = "Directory where dock was run [default: ./results/*/test.mol2.gz*]") %>%
 			  optparse::add_option(
 						opt_str = "--fields",
 						action = "store",
@@ -112,7 +112,5 @@ if (sys.nframe() == 0){
 						.f = gather_pose_features,
 						fields = options$fields,
 						verbose = options$verbose) %>%
-				readr::write_tsv(path = options$output_fname)
+				readr::write_tsv(file = options$output_fname)
 }
-
-

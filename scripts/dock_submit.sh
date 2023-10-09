@@ -36,10 +36,14 @@ elif [[ ${CLUSTER_TYPE} -eq "SLURM" ]]; then
     export SHRTCACHE=${SCRATCH_DIR}
     export LONGCACHE=${SCRATCH_DIR}
     export SBATCH_ARGS="--account=${SLURM_ACCOUNT} --mail-user=${SLURM_MAIL_USER} --mail-type=${SLURM_MAIL_TYPE} --partition=${SLURM_PARTITION}"
-#    njobs=$(wc -l dirlist)
 
-#    sbatch ${SBATCH_ARGS} --signal=B:USR1@120 --array=1-${njobs} ${DOCKBASE}/docking/submit/slurm/rundock.bash   
-    bash ${DOCKBASE}/docking/submit/slurm/subdock.bash
+    DOCKFILES_COMMON=${SCRATCH_DIR}/DOCK_common/dockfiles.$(cat ${DOCKFILES}/* | sha1sum | awk '{print $1}')
+    echo "Copying dockfiles to '${DOCKFILES_COMMON}'"
+    cp -r ${DOCKFILES} ${DOCKFILES_COMMON}
+    #    njobs=$(wc -l dirlist)
+
+    #    sbatch ${SBATCH_ARGS} --signal=B:USR1@120 --array=1-${njobs} ${DOCKBASE}/docking/submit/slurm/rundock.bash   
+    bash ${DOCKBASE}/docking/submit/subdock.bash
     echo "Check status with: squeue | grep -e \"$(whoami)\" -e \"rundock\""
 else
     echo "Unrecognized cluster type '${CLUSTER_TYPE}'"

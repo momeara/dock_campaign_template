@@ -2,6 +2,12 @@
 
 # This makes a database for a small set of compounds given as smiles
 
+if [ -z ${DOCKBASE+x} ]; then
+    echo "ERROR: The \${DOCKBASE} variable is not set"
+    echo "ERROR: Please run 'source setup_dock_environment.sh' in the project root directory"
+fi
+
+
 
 # populate substances.smi having columns <smiles> <substance_id>
 # the substance_id field should be at most 12 characters long
@@ -59,7 +65,7 @@ done
 rm -rf database.sdi
 for substance in $SUBSTANCES
 do
-  find $PWD/${substance}_rigid -name "*db2.gz" >> database.sdi
+  echo "$PWD/${substance}_rigid.db2.gz" >> database.sdi
 done
 
 # used for enrichment

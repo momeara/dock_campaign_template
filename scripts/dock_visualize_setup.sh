@@ -1,5 +1,25 @@
 #!/bin/bash
 
+if [ -z ${DOCK_TEMPLATE+x} ]; then
+    echo "Please set the \${DOCK_TEMPLATE} environment variable."
+    echo "Usually you would do this by"
+    echo ""
+    echo "  cd <campaign_root>"
+    echo "  source setup_dock_environment.sh"
+    echo ""
+    exit 1
+fi
+
+
+if [ ! -d dockfiles ]
+then
+    echo "ERROR: the directory 'dockfiles' doesn't exist"
+    echo "ERROR: Usually this means that you need to run blastermaster like"
+    echo "ERROR:"
+    echo "ERROR: cd prepared_structures/<structure_id>"
+    echo "ERROR: bash 1_prepare_structure.py"
+    exit 1
+fi
 
 
 pushd dockfiles

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z ${DOCK_TEMPLATE+x} ]; then
+    echo "ERROR: The \${DOCK_TEMPLATE} variable is not set"
+    echo "ERROR: Please run 'source setup_dock_environment.sh' in the project root directory"
+fi
+
 #prepared structure folder 'prepared_structures/<structure_id>'
 PREPARED_STRUCTURE=$(readlink -f ../<structure_id>)
 
@@ -9,9 +14,16 @@ python \
   ~rstein/zzz.scripts/DOCK_prep_scripts/new_0001_generate_ES_LD_generation.py \
   -p ${PREPARED_STRUCTURE}
 
+python \
+  ~rstein/zzz.scripts/DOCK_prep_scripts/new_0002_combine_es_ld_grids_into_combos.py \
+  -p ${PREPARED_STRUCTURE}
+
+# copy the INDOCK file to the dockfiles directory
+for params in *; do
+    echo ${params}
+    cp ${params}/INDOCK ${params}/dockfiles/
+done
 
 echo 'Preparing receptor and xtal-lig ...'
 cp ${PREPARED_STRUCTURE}/rec.pdb rec.pdb
 cp ${PREPARED_STRUCTURE}/xtal-lig.pdb xtal-lig.pdb
-
-source ${DOCK_TEMPLATE}/scripts/dock_blastermaster_standard.sh

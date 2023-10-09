@@ -6,7 +6,7 @@
 # path to working direcotry genated by blastermaster
 WORKING=$1
 
-if [ ! -f ${WORKING} ]
+if [ ! -d ${WORKING} ]
 then
   echo "ERROR: Unable to read given working directory ${WORKING}"
   echo "ERROR: To generate a working directory, run 'source ${DOCKING_TEMPLATE}/scripts/dock_blastermaster_*.sh' in the prepared_structure/<structure_id>_<date_code> directory" 
@@ -27,8 +27,8 @@ then
   exit 1
 fi
 
-$DOCKBASE/proteins/sphgen/bin/sphgen -i INSPH -o OUTSPH
-$DOCKBASE/proteins/showsphere/doshowsph.csh all_spheres.sph 0 all_spheres.sph.pdb 
+$DOCKBASE/proteins/sphgen/bin/sphgen -i ${WORKING}/INSPH -o ${WORKING}/OUTSPH
+$DOCKBASE/proteins/showsphere/doshowsph.csh ${WORKING}/all_spheres.sph 0 ${WORKING}/all_spheres.sph.pdb 
 
 echo "Edit all_spheres.sph.pdb to have 40-60 spheres"
 echo " ligand rigid fragments are aligned to clusters of spheres"

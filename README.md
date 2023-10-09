@@ -18,12 +18,18 @@ An opinionated template for a Dock based virtual screening campaign
 # Getting started
 
 0. Install DOCK (http://dock.compbio.ucsf.edu/)
+  
+     0. Go to click on [DOCK 3](http://dock.compbio.ucsf.edu/DOCK3.7/)
+     1. Click the **Obtaining Dock** -> [License Information](http://dock.compbio.ucsf.edu/Online_Licensing/index.htm) link
+     2. Click either link for [academic license](http://dock.compbio.ucsf.edu/Online_Licensing/dock_license_application.html) or follow instructions for the industry license.
+     3. Specify version **Dock 3.8**
+     4. Submit and wait for the email/download link
 
 1. Clone the template repo to somewhere you can reference. I like to put it in ~/opt/dock_campaign_template.git
 
 ```shell
 cd ~/opt
-git clone git@github.com:momeara/dock_campaign_template.git
+git clone https://github.com/maomlab/dock_campaign_template.git
 ```
 
 2. Create a base directory for the project, e.g. for example for docking to KCNQ channels on the UMich Great Lakes cluster we may use ~/turbo/KCNQ/docking
@@ -41,71 +47,18 @@ source ~/opt/dock_campaign_template/scripts/initialize_dock_campaign.sh
 
 3. Edit setup_dock_environment.sh for your environment. For example if you can submit jobs to a HPC cluster, fill in the cluster type and parameters
 
-# Using the dock_campaign_template wizard (recommended)
+# Using the Dock Campaing Template
 
-0. Setup the the dock environment
+Each time you log in, source the setup file to set paths etc.
+
 ```shell
 source setup_dock_environment.sh
 ```
 
-1. At each stage call the wizard to guide you through using the templates
+Docking involves a series of stages from setting up the receptor and database to running dock
+
+At each stage call the wizard to guide you through using the templates
 ```shell
-${DOCK_TEMPLATE}/wizard.sh
+${DOCK_TEMPLATE}/scripts/wizard.sh
 ```
-
-# Use the dock_campaign_template manually
-
-0. Setup the the dock environment
-```shell
-source setup_dock_environment.sh
-```
-
-1. Define some variables to make life easier. For a given docking run
-you can mix-and-match (prepared) structures, databases and docking flags.
-
-```shell
-DATE_CODE=<YYYYMMDD>
-STRUCTURE_ID=<pdb_id>_${DATE_CODE}
-DATABASE_ID=project_ligands_${DATE_CODE}
-DOCKING_TAG=''
-
-STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
-PREPARED_STRUCTURE=$(readlink -f structures/${STRUCTURE_ID}_${DATE_CODE})
-DATABASE=$(readlink -f databases/${DATABASE_ID}_${DATE_CODE})
-DOCKING_RUN=$(readlink -f docking_run/${STRUCTURE_ID}_${DATE_CODE},${DATABASE_ID}_${DATE_CODE},${DOCKING_TAG},${DATE_CODE})
-```
-
-2. Collect a structure and prepare it into a receptor (rec.pdb) and if available a reference ligand (xtal-lig.pdb)
-```shell
-cp -r ${DOCK_TEMPLATE}/structures/TEMPLATE_<type> ${STRUCTURE}
-pushd ${STRUCTURE}
-# edit and source 1_make_structure.sh
-popd
-```
-
-2. Prepare the structure for docking e.g. by running some form of blastermaster.
-
-```
-cp -r ${DOCK_TEMPLATE}/prepared_structures/TEMPLATE_<type> ${PREPARED_STRUCTURE}
-pushd ${PREPARED_STRUCTURE}
-# edit and source 1_prepare_structure.sh
-popd
-
-
-3. Prepare the ligand database
-```shell
-cp -r ${DOCK_TEMPLATE}/databases/TEMPLATE_<type> ${DATABASE}
-pushd ${DATABASE}
-# edit and source 1_make_database.sh
-popd
-```
-
-6. Either create a new run or copy and modify an existing
-   run. Depending on what was changed, look in dock_clean to reset.
-```shell
-cp -r ${DOCK_TEMPLATE}/docking_runs/TEMPLATE_<type> ${DOCKING_RUN}
-pushd ${DOCKING_RUN}
-# edit and source 1_run.sh
-popd
-```    
 

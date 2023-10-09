@@ -6,7 +6,7 @@ import array
 
 
 def write_out_dx_file(file,xn,yn,zn,dx,dy,dz,origin,values):
-        print "I AM HERE in write_out_dx_file"
+        print("I AM HERE in write_out_dx_file")
         fileh = open(file,'w')
         #object 1 class gridpositions counts 40 40 40
         #origin 35.31 27.576 18.265
@@ -72,7 +72,7 @@ def write_out_dx_file(file,xn,yn,zn,dx,dy,dz,origin,values):
 #	return(x_dim, y_dim, z_dim, [box_corner_x, box_corner_y, box_corner_z])
 
 def construct_box(dx_file_name, origin, spacing, xn, yn, zn, values):
-        print "I AM HERE in construct_box"
+        print("I AM HERE in construct_box")
         matrix = []
         for x in range(xn):
                y_list = []

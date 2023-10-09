@@ -1,9 +1,7 @@
-
 #SEARCH MODE
 sed -i "s/check_clashes                 yes/check_clashes                 no/" dockfiles/INDOCK
 sed -i "s/number_save                   1/number_save                   10/" dockfiles/INDOCK
 sed -i "s/number_write                  1/number_write                  10/" dockfiles/INDOCK
-
 
 #MATCHING
 sed -i "s/bump_maximum                  10.0/bump_maximum                  100.0/" dockfiles/INDOCK
@@ -23,3 +21,9 @@ sed -i "s/ang2_step                     2.5/ang2_step                     .25/" 
 
 #MINIMIZATION
 sed -i "s/minimize                      yes/minimize                      no/" dockfiles/INDOCK
+
+# the default max number of atoms is 25 which is tiny!
+sed -i -e "s/bump_maximum                  10.0/bump_maximum                  100.0/g" dockfiles/INDOCK
+sed -i -e "s/bump_rigid                    10.0/bump_rigid                    100.0/g" dockfiles/INDOCK
+sed -i -e "s/mol2_score_maximum            -10.0/mol2_score_maximum            100.0/g" dockfiles/INDOCK
+sed -i -e "s/atom_maximum                  25/atom_maximum                  500/g" dockfiles/INDOCK

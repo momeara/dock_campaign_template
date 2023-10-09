@@ -26,7 +26,7 @@ echo "Running blastermaster covalent..."
 
 if [ ${CLUSTER_TYPE} = "LOCAL" ]; then
     echo "Using cluster type LOCAL"
-    
+
 $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --useThinSphEleflag \
   --useThinSphLdsflag \
@@ -35,9 +35,12 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
 
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 elif [ ${CLUSTER_TYPE} = "SGE" ]; then
     echo "Using cluster type SGE"
-qsub <<EOF 
+qsub <<EOF
 #$ -S /bin/csh
 #$ -cwd
 #$ -q all.q
@@ -54,6 +57,10 @@ $DOCKBASE/proteins/blastermaster/blastermaster.py \
   --covalentResName ${COVALENT_RESIDUE_NAME} \
   --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
   -v
+
+mv INDOCK dockfiles/
+source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
+
 EOF
 
 echo "Submitting to the SGE cluster, this should take ~30 minutes"
@@ -61,38 +68,42 @@ echo "Check with 'qstat'"
 
 elif [ ${CLUSTER_TYPE} = "SLURM" ]; then
     echo "Using cluster type SLURM"
-SBATCH_SCRIPT=<<EOF
-#!/bin/sh
-#SBATCH --job-name=blastermaster_covalent
-#SBATCH --mail-user=${SLURM_MAIL_USER}
-#SBATCH --mail-type=${SLURM_MAIL_TYPE}
-#SBATCH --account=${SLURM_ACCOUNT}
-#SBATCH --partition=${SLURM_PARTITION}
-#SBATCH --cpus-per-task=1
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --mem-per-cpu=1000m 
-#SBATCH --time=50:00
-#SBATCH --output=working/blastermaster_covalent.out
-#SBATCH --error=working/blastermaster_covalent.err
+    cat > blastermaster.sbatch <<-EOF
+	#!/bin/sh
+	#SBATCH --job-name=blastermaster_covalent
+	#SBATCH --mail-user=${SLURM_MAIL_USER}
+	#SBATCH --mail-type=${SLURM_MAIL_TYPE}
+	#SBATCH --account=${SLURM_ACCOUNT}
+	#SBATCH --partition=${SLURM_PARTITION}
+	#SBATCH --cpus-per-task=1
+	#SBATCH --nodes=1
+	#SBATCH --ntasks-per-node=1
+	#SBATCH --mem-per-cpu=1000m
+	#SBATCH --time=50:00
+	#SBATCH --output=working/blastermaster_covalent.out
+	#SBATCH --error=working/blastermaster_covalent.err
 
-export DOCKBASE=${DOCKBASE} 
-export PATH="${DOCKBASE}/bin:${PATH}"
+	export DOCKBASE=${DOCKBASE}
+	export PATH="${DOCKBASE}/bin:${PATH}"
 
-${DOCKBASE}/proteins/blastermaster/blastermaster.py \
-  --useThinSphEleflag \
-  --useThinSphLdsflag \
-  --covalentResNum ${COVALENT_RESIDUE_NUMBER} \
-  --covalentResName ${COVALENT_RESIDUE_NAME} \
-  --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
-  -v
-EOF
+	${DOCKBASE}/proteins/blastermaster/blastermaster.py \
+	  --useThinSphEleflag \
+	  --useThinSphLdsflag \
+	  --covalentResNum ${COVALENT_RESIDUE_NUMBER} \
+	  --covalentResName ${COVALENT_RESIDUE_NAME} \
+	  --covalentResAtoms ${COVALENT_RESIDUE_ATOMS} \
+	  -v
 
-SLURM_JOB_ID=$(sbatch --parsable ${SBATCH_SCRIPT})
+        mv INDOCK dockfiles/
+        source ${DOCK_TEMPLATE}/scripts/dock_visualize_setup.sh
 
-echo "Submitting job ${SLURM_JOB_ID} to the SLURM cluster, this should take ~30 minutes"
-echo "Check with 'squeue | grep ${SLURM_JOB_ID}'"
-exit ${SLURM_JOB_ID}
+	EOF
+
+    SLURM_JOB_ID=$(sbatch --parsable blastermaster.sbatch)
+
+    echo "Submitting job ${SLURM_JOB_ID} to the SLURM cluster, this should take ~30 minutes"
+    echo "Check with 'squeue | grep ${SLURM_JOB_ID}'"
+
 else
     echo "Unrecognized CLUSTER_TYPE '${CLUSTER_TYPE}'"
     exit 1
